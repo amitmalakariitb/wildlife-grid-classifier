@@ -29,10 +29,11 @@ def predict_folder(image_folder):
         path = os.path.join(image_folder, fn)
         img = cv2.imread(path)
         if img is None:
-            continue
+            print("Cannot read:", fn); continue
         try:
             cells = preprocess.slice_into_cells(img)
-        except Exception:
+        except Exception as e:
+            print("Skipping", fn, "slice failed:", e)
             continue
         feats = [feature_extraction.extract_features_from_cell(c) for c in cells]
         preds = model.predict(np.vstack(feats)).astype(int).tolist()

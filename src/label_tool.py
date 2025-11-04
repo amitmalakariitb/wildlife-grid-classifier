@@ -1,3 +1,4 @@
+
 import os
 import cv2
 import pandas as pd
@@ -28,6 +29,14 @@ if os.path.exists(OUT_CSV):
             continue
         vals = [int(row.get(f"c{i+1:02d}", 0)) for i in range(grid_rows*grid_cols)]
         labels[fname] = vals
+
+# Start from first unlabeled image (skip files already labeled)
+unlabeled = [f for f in images if f not in labels]
+if unlabeled:
+    index = images.index(unlabeled[0])
+    print(f"Starting at first unlabeled image: {unlabeled[0]} (index {index})")
+else:
+    print("All images already labeled. Starting at first image.")
 
 def save_labels():
     rows = []
