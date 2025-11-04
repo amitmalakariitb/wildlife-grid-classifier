@@ -10,7 +10,7 @@ venv/
 .vscode/
 # Data, outputs, models (avoid committing large files)
 data/
-output/
+output/*
 models/
 !output/labels.csv
 # OS
